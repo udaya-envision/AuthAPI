@@ -1,47 +1,23 @@
 ﻿using AuthAPI.CustomAttribute;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-public class PermissionPolicyProvider : IAuthorizationPolicyProvider
+namespace AuthAPI.CustomAttribute
 {
-    private readonly DefaultAuthorizationPolicyProvider _fallbackPolicyProvider;
-
-    public PermissionPolicyProvider(IOptions<AuthorizationOptions> options)
+    public class PermissionsAuthorizationPolicyProvider(IOptions<AuthorizationOptions> options)
+        : DefaultAuthorizationPolicyProvider(options)
     {
-        _fallbackPolicyProvider = new DefaultAuthorizationPolicyProvider(options);
-    }
-
-    public Task<AuthorizationPolicy> GetDefaultPolicyAsync()
-    {
-        return _fallbackPolicyProvider.GetDefaultPolicyAsync();
-    }
-
-    public Task<AuthorizationPolicy?> GetFallbackPolicyAsync()
-    {
-        return _fallbackPolicyProvider.GetFallbackPolicyAsync();
-    }
-
-    public Task<AuthorizationPolicy> GetPolicyAsync(string policyName)
-    {
-        if (policyName.StartsWith("PermissionPolicy?"))
+        public override async Task<AuthorizationPolicy?> GetPolicyAsync(string policyName)
         {
-            var query = policyName.Replace("PermissionPolicy?", "").Split('&');
-            var permissions = query[0].Replace("Permissions=", "").Split(',')
-                .Select(p => Enum.Parse<Permissions>(p))
-                .ToArray();
-            var mode = Enum.Parse<PermissionMode>(query[1].Replace("mode=", ""));
+            if (!policyName.StartsWith("PermissionPolicy", StringComparison.OrdinalIgnoreCase))
+                return await base.GetPolicyAsync(policyName);
 
-            var policy = new AuthorizationPolicyBuilder()
-                .AddRequirements(new PermissionRequirement(permissions, mode))
-                .Build();
-
-            return Task.FromResult(policy);
+            var policy = new AuthorizationPolicyBuilder();
+            var policyValues = policyName.Split("?");
+            var permissions = policyValues[1].Split("&").First(x => x.StartsWith("Permissions", StringComparison.OrdinalIgnoreCase)).Split("=")[1].Split(",");
+            var mode = policyValues[1].Split("&").First(x => x.StartsWith("mode", StringComparison.OrdinalIgnoreCase)).Split("=")[1];
+            policy.AddRequirements(new PermissionRequirement(permissions.Select(Enum.Parse<Permissions>).ToArray(), Enum.Parse<PermissionMode>(mode)));
+            return policy.Build();
         }
-
-        return _fallbackPolicyProvider.GetPolicyAsync(policyName);
     }
 }

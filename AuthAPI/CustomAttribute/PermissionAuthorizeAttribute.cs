@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AuthAPI.CustomAttribute;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AuthAPI.CustomAttribute;
 
@@ -7,7 +8,7 @@ public class PermissionAuthorizeAttribute : AuthorizeAttribute
 {
     public PermissionAuthorizeAttribute(Permissions[]? permissions = null, PermissionMode mode = PermissionMode.Any)
     {
-        permissions ??= Array.Empty<Permissions>();
+        permissions ??= [];
         Policy = $"PermissionPolicy?Permissions={string.Join(",", permissions)}&mode={mode}";
     }
 }

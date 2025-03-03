@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AuthAPI.Models;
+using AuthAPI.Repositories;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -28,27 +31,47 @@ public class AuthController : ControllerBase
         return Unauthorized("Invalid credentials");
     }
 
+    [Authorize] // Ensures authentication is required
+    [HttpGet("debug-claims")]
+    public IActionResult DebugClaims()
+    {
+        var user = HttpContext.User;
+
+        var claims = user.Claims.Select(c => new { c.Type, c.Value }).ToList();
+
+        return Ok(claims);
+    }
+
+    [HttpGet("test-auth")]
+    public IActionResult TestAuth()
+    {
+        var userClaims = User.Claims.Select(c => new { c.Type, c.Value }).ToList();
+        return Ok(userClaims);
+    }
+
     private string GenerateJwtToken(string username)
     {
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-        var claims = new[]
-        {
-            new Claim(ClaimTypes.Name, username),
-            new Claim("Permission", "Read"),  // Example permission
-            new Claim("Permission", "Administer") // Example permission
-        };
+        var claims = new List<Claim>
+    {
+        new Claim(ClaimTypes.Name, username),
+        new Claim("Permissions", "Administer") 
+    };
 
         var token = new JwtSecurityToken(
-            _configuration["Jwt:Issuer"],
-            _configuration["Jwt:Audience"],
-            claims,
+            issuer: _configuration["Jwt:Issuer"],
+            audience: _configuration["Jwt:Audience"],
+            claims: claims,
             expires: DateTime.UtcNow.AddHours(2),
-            signingCredentials: credentials);
+            signingCredentials: credentials
+        );
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
+
+
 }
 
 public class LoginRequest

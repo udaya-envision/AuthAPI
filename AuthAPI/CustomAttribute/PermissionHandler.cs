@@ -1,31 +1,35 @@
-﻿using AuthAPI.CustomAttribute;
+﻿using System.Linq;
+using AuthAPI.CustomAttribute;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Logging;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
-public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionRequirement>
+namespace AuthAPI.CustomAttribute;
+
+public class PermissionHandler : AuthorizationHandler<PermissionRequirement>
 {
-    protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
+    protected override Task HandleRequirementAsync(
+    AuthorizationHandlerContext context, PermissionRequirement requirement)
     {
-        // Retrieve the user's permissions from the claims
-        var userPermissions = context.User.FindAll("Permission").Select(c => c.Value).ToList();
+        var userPermissions = context.User.Claims
+            .Where(c => c.Type.Equals("Permissions", StringComparison.OrdinalIgnoreCase))
+            .Select(c => c.Value)
+            .ToList();
 
-        // Check if the user has all required permissions based on the mode
-        var hasPermission = requirement.Mode switch
-        {
-            PermissionMode.All => requirement.Permissions.All(p => userPermissions.Contains(p.ToString())),
-            PermissionMode.Any => requirement.Permissions.Any(p => userPermissions.Contains(p.ToString())),
-            _ => false
-        };
+        Console.WriteLine($"User Permissions: {string.Join(", ", userPermissions)}");
+        Console.WriteLine($"Required Permissions: {string.Join(", ", requirement.Permissions)}");
 
-        if (hasPermission)
+        // ✅ Check if the user has at least one required permission
+        if (requirement.Permissions.Any(rp => userPermissions.Contains(rp.ToString())))
         {
             context.Succeed(requirement);
         }
 
         return Task.CompletedTask;
     }
-}
 
+    protected virtual bool HasAllPermissions(AuthorizationHandlerContext context, PermissionRequirement requirement)
+    {
+        return requirement.Mode == PermissionMode.All
+            ? requirement.Permissions.All(permission => context.User.HasClaim(c => c.Type == "Permission" && c.Value == permission.ToString()))
+            : requirement.Permissions.Any(permission => context.User.HasClaim(c => c.Type == "Permission" && c.Value == permission.ToString()));
+    }
+}

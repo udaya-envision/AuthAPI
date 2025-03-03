@@ -1,29 +1,19 @@
-﻿using AuthAPI;
+﻿using System.Text;
+using AuthAPI;
 using AuthAPI.CustomAttribute;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Serilog;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Set up Serilog for logging (including logging to a file)
-Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console()
-    .WriteTo.File("app_logs.txt", rollingInterval: RollingInterval.Day)
-    .CreateLogger();
-
-// Add Serilog as the logging provider
-builder.Host.UseSerilog();
-
 // Add services to the container.
-builder.Services.AddControllers();
 
-// Configure Swagger/OpenAPI
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -34,14 +24,17 @@ builder.Services.AddSwaggerGen(c =>
     });
 
     // 🔹 Enable Authorization in Swagger UI
+    // Add security definition for JWT
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Description = "Enter 'Bearer {token}'",
+        Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
         Name = "Authorization",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
+        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+        Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT"
     });
+
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
@@ -59,10 +52,21 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// Add JWT Authentication
+builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionsAuthorizationPolicyProvider>();
+builder.Services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
+
+builder.Services.AddAuthorization();
+
+//builder.Services.AddAuthentication(options =>
+//{
+//    options.DefaultScheme = "NoAuthentication";
+//}).AddScheme<AuthenticationSchemeOptions, NoAuthenticationHandler>("NoAuthentication", options => { });
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
@@ -71,38 +75,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
-            ClockSkew = TimeSpan.Zero // Optional: set to zero to immediately reject expired tokens
-        };
-
-        options.Events = new JwtBearerEvents
-        {
-            OnAuthenticationFailed = context =>
-            {
-                Log.Error($"Authentication failed: {context.Exception.Message}");
-                return Task.CompletedTask;
-            },
-            OnTokenValidated = context =>
-            {
-                Log.Information("Token validated successfully.");
-                return Task.CompletedTask;
-            },
-            OnChallenge = context =>
-            {
-                Log.Warning($"Authorization failed: {context.Error}");
-                return Task.CompletedTask;
-            }
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
     });
 
-
-// Add Authorization services
-builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
-builder.Services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
-builder.Services.AddAuthorization();
-
-// Add HttpContextAccessor
-builder.Services.AddHttpContextAccessor(); // Required for getting HttpContext in handler
 
 var app = builder.Build();
 
@@ -115,11 +92,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Apply Authentication and Authorization middleware
-app.UseAuthentication();  // Authentication middleware
-app.UseAuthorization();   // Authorization middleware
+app.UseAuthentication();  // 🔴 You missed this line
 
-// Map controller routes
-app.MapControllers();     // Map controller routes
+app.UseAuthorization();
+
+app.MapControllers();
 
 app.Run();

@@ -21,7 +21,7 @@ namespace AuthAPI.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        [PermissionAuthorize(permissions: new[] { Permissions.Read, Permissions.Administer }, mode: PermissionMode.Any)]
+        [PermissionAuthorize(permissions: [Permissions.Read, Permissions.Administer], mode: PermissionMode.Any)]
         //[Authorize]
         public IEnumerable<WeatherForecast> Get()
         {

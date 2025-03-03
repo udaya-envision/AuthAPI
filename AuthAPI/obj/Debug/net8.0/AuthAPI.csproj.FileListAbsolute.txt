@@ -286,3 +286,8 @@ C:\Users\Asus\source\repos\AuthAPI\AuthAPI\bin\Debug\net8.0\System.IO.Pipelines.
 C:\Users\Asus\source\repos\AuthAPI\AuthAPI\bin\Debug\net8.0\System.Text.Encodings.Web.dll
 C:\Users\Asus\source\repos\AuthAPI\AuthAPI\bin\Debug\net8.0\System.Text.Json.dll
 C:\Users\Asus\source\repos\AuthAPI\AuthAPI\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+C:\Users\Asus\source\repos\AuthAPI\AuthAPI\obj\Debug\net8.0\AuthAPI.sourcelink.json
+C:\Users\Asus\source\repos\AuthAPI\AuthAPI\bin\Debug\net8.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\Asus\source\repos\AuthAPI\AuthAPI\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\Asus\source\repos\AuthAPI\AuthAPI\bin\Debug\net8.0\System.ClientModel.dll
+C:\Users\Asus\source\repos\AuthAPI\AuthAPI\bin\Debug\net8.0\System.Formats.Asn1.dll

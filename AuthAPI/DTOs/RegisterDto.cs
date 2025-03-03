@@ -1,11 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AuthAPI.Models
+namespace AuthAPI.DTOs
 {
-    public class User
+    public class RegisterDto
     {
-        public int Id { get; set; }
-
         [Required]
         public string Username { get; set; }
 
@@ -14,6 +12,7 @@ namespace AuthAPI.Models
         public string Email { get; set; }
 
         [Required]
-        public string PasswordHash { get; set; }
+        [MinLength(6)]
+        public string Password { get; set; }
     }
 }
