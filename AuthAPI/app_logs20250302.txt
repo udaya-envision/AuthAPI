@@ -1,0 +1,87 @@
+2025-03-02 21:08:21.570 +05:30 [INF] User profile is available. Using 'C:\Users\Asus\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-03-02 21:08:21.885 +05:30 [INF] Now listening on: https://localhost:7081
+2025-03-02 21:08:21.887 +05:30 [INF] Now listening on: http://localhost:5212
+2025-03-02 21:08:21.995 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-03-02 21:08:21.997 +05:30 [INF] Hosting environment: Development
+2025-03-02 21:08:21.998 +05:30 [INF] Content root path: C:\Users\Asus\source\repos\AuthAPI\AuthAPI
+2025-03-02 21:08:22.581 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7081/swagger/index.html - null null
+2025-03-02 21:08:22.790 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7081/swagger/index.html - 200 null text/html;charset=utf-8 216.9489ms
+2025-03-02 21:08:22.810 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7081/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-02 21:08:22.810 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7081/swagger/index.js - null null
+2025-03-02 21:08:22.821 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7081/swagger/index.js - 200 null application/javascript;charset=utf-8 11.6658ms
+2025-03-02 21:08:22.826 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7081/_vs/browserLink - null null
+2025-03-02 21:08:22.833 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7081/_framework/aspnetcore-browser-refresh.js - 200 13766 application/javascript; charset=utf-8 24.2063ms
+2025-03-02 21:08:22.883 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7081/_vs/browserLink - 200 null text/javascript; charset=UTF-8 58.4227ms
+2025-03-02 21:08:22.930 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7081/swagger/v1/swagger.json - null null
+2025-03-02 21:08:22.941 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7081/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 11.3711ms
+2025-03-02 21:08:30.310 +05:30 [INF] Request starting HTTP/2 POST https://localhost:7081/api/auth/login - application/json 54
+2025-03-02 21:08:30.379 +05:30 [INF] Executing endpoint 'AuthController.Login (AuthAPI)'
+2025-03-02 21:08:30.397 +05:30 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login(LoginRequest) on controller AuthController (AuthAPI).
+2025-03-02 21:08:30.472 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-02 21:08:30.480 +05:30 [INF] Executed action AuthController.Login (AuthAPI) in 78.0897ms
+2025-03-02 21:08:30.481 +05:30 [INF] Executed endpoint 'AuthController.Login (AuthAPI)'
+2025-03-02 21:08:30.482 +05:30 [INF] Request finished HTTP/2 POST https://localhost:7081/api/auth/login - 200 null application/json; charset=utf-8 173.5282ms
+2025-03-02 21:08:45.015 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7081/WeatherForecast - null null
+2025-03-02 21:08:45.027 +05:30 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-03-02 21:08:45.033 +05:30 [WRN] Authorization failed: 
+2025-03-02 21:08:45.036 +05:30 [INF] AuthenticationScheme: Bearer was challenged.
+2025-03-02 21:08:45.037 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7081/WeatherForecast - 401 0 null 22.6108ms
+2025-03-02 21:10:09.640 +05:30 [INF] User profile is available. Using 'C:\Users\Asus\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-03-02 21:10:09.878 +05:30 [INF] Now listening on: https://localhost:7081
+2025-03-02 21:10:09.880 +05:30 [INF] Now listening on: http://localhost:5212
+2025-03-02 21:10:09.977 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-03-02 21:10:09.979 +05:30 [INF] Hosting environment: Development
+2025-03-02 21:10:09.980 +05:30 [INF] Content root path: C:\Users\Asus\source\repos\AuthAPI\AuthAPI
+2025-03-02 21:10:11.046 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7081/swagger/index.html - null null
+2025-03-02 21:10:11.236 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7081/swagger/index.html - 200 null text/html;charset=utf-8 200.3257ms
+2025-03-02 21:10:11.251 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7081/swagger/index.js - null null
+2025-03-02 21:10:11.251 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7081/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-02 21:10:11.259 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7081/swagger/index.js - 200 null application/javascript;charset=utf-8 7.6919ms
+2025-03-02 21:10:11.270 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7081/_framework/aspnetcore-browser-refresh.js - 200 13766 application/javascript; charset=utf-8 19.522ms
+2025-03-02 21:10:11.273 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7081/_vs/browserLink - null null
+2025-03-02 21:10:11.321 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7081/_vs/browserLink - 200 null text/javascript; charset=UTF-8 47.9496ms
+2025-03-02 21:10:11.381 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7081/swagger/v1/swagger.json - null null
+2025-03-02 21:10:11.391 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7081/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 9.9299ms
+2025-03-02 21:10:17.655 +05:30 [INF] Request starting HTTP/2 POST https://localhost:7081/api/auth/login - application/json 54
+2025-03-02 21:10:17.730 +05:30 [INF] Executing endpoint 'AuthController.Login (AuthAPI)'
+2025-03-02 21:10:17.757 +05:30 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login(LoginRequest) on controller AuthController (AuthAPI).
+2025-03-02 21:10:17.843 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-02 21:10:17.852 +05:30 [INF] Executed action AuthController.Login (AuthAPI) in 89.5974ms
+2025-03-02 21:10:17.853 +05:30 [INF] Executed endpoint 'AuthController.Login (AuthAPI)'
+2025-03-02 21:10:17.854 +05:30 [INF] Request finished HTTP/2 POST https://localhost:7081/api/auth/login - 200 null application/json; charset=utf-8 199.6973ms
+2025-03-02 21:10:33.726 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7081/WeatherForecast - null null
+2025-03-02 21:10:33.743 +05:30 [WRN] User is not authenticated.
+2025-03-02 21:10:33.744 +05:30 [INF] Authorization failed. Fail() was explicitly called.
+2025-03-02 21:10:33.750 +05:30 [WRN] Authorization failed: 
+2025-03-02 21:10:33.752 +05:30 [INF] AuthenticationScheme: Bearer was challenged.
+2025-03-02 21:10:33.753 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7081/WeatherForecast - 401 0 null 27.2158ms
+2025-03-02 21:17:01.914 +05:30 [INF] User profile is available. Using 'C:\Users\Asus\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-03-02 21:17:02.173 +05:30 [INF] Now listening on: https://localhost:7081
+2025-03-02 21:17:02.176 +05:30 [INF] Now listening on: http://localhost:5212
+2025-03-02 21:17:02.293 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-03-02 21:17:02.295 +05:30 [INF] Hosting environment: Development
+2025-03-02 21:17:02.296 +05:30 [INF] Content root path: C:\Users\Asus\source\repos\AuthAPI\AuthAPI
+2025-03-02 21:17:02.495 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7081/swagger/index.html - null null
+2025-03-02 21:17:02.719 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7081/swagger/index.html - 200 null text/html;charset=utf-8 236.0796ms
+2025-03-02 21:17:02.731 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7081/swagger/index.js - null null
+2025-03-02 21:17:02.731 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7081/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-02 21:17:02.738 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7081/swagger/index.js - 200 null application/javascript;charset=utf-8 7.4342ms
+2025-03-02 21:17:02.750 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7081/_framework/aspnetcore-browser-refresh.js - 200 13766 application/javascript; charset=utf-8 19.3024ms
+2025-03-02 21:17:02.755 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7081/_vs/browserLink - null null
+2025-03-02 21:17:02.805 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7081/_vs/browserLink - 200 null text/javascript; charset=UTF-8 49.6598ms
+2025-03-02 21:17:02.860 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7081/swagger/v1/swagger.json - null null
+2025-03-02 21:17:02.876 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7081/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 16.9879ms
+2025-03-02 21:17:11.418 +05:30 [INF] Request starting HTTP/2 POST https://localhost:7081/api/auth/login - application/json 54
+2025-03-02 21:17:11.491 +05:30 [INF] Executing endpoint 'AuthController.Login (AuthAPI)'
+2025-03-02 21:17:11.514 +05:30 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login(LoginRequest) on controller AuthController (AuthAPI).
+2025-03-02 21:17:11.608 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-02 21:17:11.615 +05:30 [INF] Executed action AuthController.Login (AuthAPI) in 96.4797ms
+2025-03-02 21:17:11.616 +05:30 [INF] Executed endpoint 'AuthController.Login (AuthAPI)'
+2025-03-02 21:17:11.618 +05:30 [INF] Request finished HTTP/2 POST https://localhost:7081/api/auth/login - 200 null application/json; charset=utf-8 201.5693ms
+2025-03-02 21:17:24.764 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7081/WeatherForecast - null null
+2025-03-02 21:17:24.778 +05:30 [INF] Authorization failed. These requirements were not met:
+PermissionRequirement
+2025-03-02 21:17:24.783 +05:30 [WRN] Authorization failed: 
+2025-03-02 21:17:24.786 +05:30 [INF] AuthenticationScheme: Bearer was challenged.
+2025-03-02 21:17:24.788 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7081/WeatherForecast - 401 0 null 24.1166ms
